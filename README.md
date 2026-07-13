@@ -75,15 +75,29 @@ Features Implemented
 <img width="1000" height="1000" alt="main py5" src="https://github.com/user-attachments/assets/ac2ed769-a1e7-4368-bc0a-bf93f57a8e65" />
 <img width="1000" height="1000" alt="main py6" src="https://github.com/user-attachments/assets/7a8d44cb-1ddb-4866-bd5a-db0ebb5c1dc5" />
 
+---
+## **(main) __init__.py Code breakdown and explanation**
+<img width="1000" height="1000" alt="__init__ py1" src="https://github.com/user-attachments/assets/6876f47c-fabd-434a-9094-35bea00c9a29" />
 
+---
+## **models.py Code breakdown and explanation**
+<img width="1000" height="1000" alt="models py1" src="https://github.com/user-attachments/assets/e8c937bf-bea5-4dd3-84ff-984b4c17b599" />
+<img width="1000" height="1000" alt="models py2" src="https://github.com/user-attachments/assets/b331a888-1de1-4a71-a3c8-bc546d9f472f" />
 
+---
+## **run.py Code breakdown and explanation**
+<img width="1000" height="1000" alt="run py1" src="https://github.com/user-attachments/assets/88bd902b-b1d0-4e0d-891d-5bb67973f6a4" />
 
+---
+## **utils.py Code breakdown and explanation**
+<img width="1000" height="1000" alt="utils py1" src="https://github.com/user-attachments/assets/165c6fa6-965f-4c15-a6aa-39c2bfe7beff" />
 
-
-
-
-
-
+---
+### **Guiding through the website**
+<img width="1300" height="1150" alt="Web1" src="https://github.com/user-attachments/assets/3b8be6b0-b1dd-4124-8653-aa2fea170394" />
+<img width="1300" height="1150" alt="Web2" src="https://github.com/user-attachments/assets/88397366-c224-4370-8b6e-d5bcc41faba2" />
+<img width="1300" height="1150" alt="Web3" src="https://github.com/user-attachments/assets/526c29ea-7de6-4a7e-8df3-f839922d11ae" />
+<img width="1300" height="1150" alt="Web4" src="https://github.com/user-attachments/assets/c537d54b-d640-4f42-ba4b-f620ee88cd90" />
 
 
 
