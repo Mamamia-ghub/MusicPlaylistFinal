@@ -61,6 +61,29 @@ Features Implemented
 
 ---
 ## **auth.py Code breakdown and explanation**
+<img width="1000" height="1000" alt="auth py1" src="https://github.com/user-attachments/assets/5af8ae71-b18d-471e-8d1f-56053c1b40a2" />
+<img width="1000" height="1000" alt="auth py2" src="https://github.com/user-attachments/assets/39af1e4f-f50e-4502-bb76-ad1462e608c9" />
+<img width="1000" height="1000" alt="auth py3" src="https://github.com/user-attachments/assets/815abc8f-a0a6-4a28-8c55-87af7fdbdcac" />
+
+---
+## **main.py Code breakdown and explanation**
+<img width="1000" height="1000" alt="main py1" src="https://github.com/user-attachments/assets/077a6319-337b-47cb-a650-8e99c59b320f" />
+<img width="1000" height="1000" alt="main py2" src="https://github.com/user-attachments/assets/74fc2e5e-1366-4b4b-b9bf-49914c22a089" />
+<img width="1000" height="1000" alt="main py3" src="https://github.com/user-attachments/assets/6eae0262-0c98-4cfa-b380-678a02f5752a" />
+<img width="1000" height="1000" alt="main py4" src="https://github.com/user-attachments/assets/a3f90bd8-b2bc-4669-af78-9f704377ffdf" />
+<img width="1000" height="1000" alt="main py4" src="https://github.com/user-attachments/assets/d767929c-6343-4dd2-8cef-f1b88f7c6870" />
+<img width="1000" height="1000" alt="main py5" src="https://github.com/user-attachments/assets/ac2ed769-a1e7-4368-bc0a-bf93f57a8e65" />
+<img width="1000" height="1000" alt="main py6" src="https://github.com/user-attachments/assets/7a8d44cb-1ddb-4866-bd5a-db0ebb5c1dc5" />
+
+
+
+
+
+
+
+
+
+
 
 
 
