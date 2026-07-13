@@ -48,6 +48,23 @@ Features Implemented
 
 11. **Trending Music System:** Displays the most listened-to tracks based on user activity from the last 7 days.
 
+---
+## **Guide and explanation of structure**
+<img width="1000" height="1000" alt="Skeleton1" src="https://github.com/user-attachments/assets/18414618-cb83-4b0e-bc5e-9c62dd7001f1" />
+<img width="1000" height="1000" alt="Skeleton2" src="https://github.com/user-attachments/assets/07b06c2b-0124-4672-84ec-4d6294b3f75b" />
+
+---
+## **api.py Code breakdown and explanation**
+<img width="1000" height="1000" alt="api py1" src="https://github.com/user-attachments/assets/66eec792-7df3-48d2-b9fc-9f17fe5a0c36" />
+<img width="1000" height="1000" alt="api py2" src="https://github.com/user-attachments/assets/33dc352b-cfa7-4e09-a134-2b56381291be" />
+<img width="1000" height="1000" alt="api py3" src="https://github.com/user-attachments/assets/7fb167d2-2667-4be2-bc6f-74ebc1c8739e" />
+
+---
+## **auth.py Code breakdown and explanation**
+
+
+
+
 
 
 
