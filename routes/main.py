@@ -5,6 +5,7 @@ from sqlalchemy import func
 from models import db, Playlist, PlaylistTrack, Review, ListeningLog, FavoriteArtist
 from services.lastfm_service import LastFMService
 from .auth import login_required
+from datetime import timezone
 
 main_bp = Blueprint('main', __name__)
 lastfm = LastFMService()
@@ -12,7 +13,8 @@ lastfm = LastFMService()
 @main_bp.route('/')
 def index():
     """Global trending dashboard view (Feature 11)."""
-    one_week_ago = datetime.utcnow() - timedelta(days=7)
+    one_week_ago = datetime.now(timezone.utc) - timedelta(days=7)
+
     trending = db.session.query(
         ListeningLog.track_name, ListeningLog.artist_name, ListeningLog.track_mbid, func.count(ListeningLog.id).label('play_count')
     ).filter(ListeningLog.listened_at >= one_week_ago)\
@@ -43,7 +45,7 @@ def search():
         elif search_type == 'album':
             results = api_data.get('results', {}).get('albummatches', {}).get('album', [])
 
-    one_week_ago = datetime.utcnow() - timedelta(days=7)
+    one_week_ago = datetime.now(timezone.utc) - timedelta(days=7)
     trending = db.session.query(
         ListeningLog.track_name, ListeningLog.artist_name, ListeningLog.track_mbid, func.count(ListeningLog.id).label('play_count')
     ).filter(ListeningLog.listened_at >= one_week_ago)\
@@ -84,24 +86,6 @@ def create_playlist():
     db.session.commit()
     flash(f"Playlist matrix '{title}' spawned successfully.", "success")
     return redirect(url_for('main.playlists_dashboard'))
-
-@main_bp.route('/playlists/manage/<int:playlist_id>')
-@login_required
-def playlist_detail(playlist_id):
-    """Playlist Track configuration matrix view (Feature 3)."""
-    playlist = Playlist.query.get_or_404(playlist_id)
-    if playlist.user_id != session['user_id']:
-        flash("Unauthorized playlist access sequence denied.", "danger")
-        return redirect(url_for('main.playlists_dashboard'))
-    return render_template('playlist_detail.html', playlist=playlist)
-
-@main_bp.route('/playlists/shared/<int:playlist_id>')
-def shared_playlist(playlist_id):
-    """Playlist sharing: public URL read-only view context layer (Feature 9)."""
-    playlist = Playlist.query.get_or_404(playlist_id)
-    if not playlist.is_public:
-        return render_template('base.html', error_title="Access Denied", error_message="This operational playlist matrix workspace is flagged private."), 403
-    return render_template('playlist_detail.html', playlist=playlist, read_only=True)
 
 @main_bp.route('/log-play', methods=['POST'])
 @login_required
@@ -195,13 +179,15 @@ def stats_dashboard():
     mock_genres = [("Alternative Rock", 14), ("Synthwave", 9), ("Electronic", 5)]
     return render_template('stats.html', top_artists=top_artists, top_genres=mock_genres)
 
-@main_bp.route('/playlists/delete/<int:playlist_id>', methods=['POST'])
+@main_bp.route('/playlists/delete/<int:playlist_id>', methods=['DELETE'])
 @login_required
 def delete_playlist_matrix(playlist_id):
-    """Playlist CRUD: Delete operation view controller endpoint."""
     playlist = Playlist.query.filter_by(id=playlist_id, user_id=session['user_id']).first_or_404()
+    
     db.session.delete(playlist)
     db.session.commit()
+    
+    return "", 200
     return "", 200
 
 
