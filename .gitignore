@@ -1,0 +1,53 @@
+# cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/
+pip-log.txt
+pip-delete-this-directory.txt
+.toast
+.spyderproject
+.spyproject
+
+# local enviroemnts
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# security, protects private keys
+.env
+.flaskenv
+instance/
+.webassets-cache
+
+# system sensetive runtime databases and locks
+*.db
+*.sqlite
+*.sqlite3
+.db_secret
+
+# spesific matadata
+Thumbs.db
+Desktop.ini
+.DS_Store
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
