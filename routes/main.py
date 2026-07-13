@@ -188,7 +188,6 @@ def delete_playlist_matrix(playlist_id):
     db.session.commit()
     
     return "", 200
-    return "", 200
 
 
 
