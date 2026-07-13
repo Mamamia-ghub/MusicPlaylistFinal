@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}{{ playlist.title }} Configuration Workspace — Music Matrix{% endblock %}
+
+{% block content %}
+<div class="playlist-detail-container">
+    
+    <div class="card detail-header-card">
+        <div class="header-split">
+            <div>
+                <h1>Playlist: {{ playlist.title }}</h1>
+                <p class="description-text">{{ playlist.description or 'No structural pipeline description mapped.' }}</p>
+                <p class="meta-status">Status: <strong>{{ 'Public Access Active View' if playlist.is_public else 'Private Session Only' }}</strong></p>
+            </div>
+            {% if playlist.cover_url %}
+                <img src="{{ playlist.cover_url }}" alt="Cover Artwork" class="detail-hero-art">
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card tracks-workspace-card">
+        <h3>Track Entry Sequences Matrix</h3>
+        
+        {% if read_only %}
+            <p class="alert-info-banner">You are viewing this playlist matrix pipeline in read-only workspace mode.</p>
+        {% endif %}
+
+        <form {% if not read_only %} hx-post="/htmx/playlist/{{ playlist.id }}/reorder" hx-target="#tracklist-rows-tbody" {% endif %} class="reorder-form">
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        {% if not read_only %}<th>Sequence Priority</th>{% endif %}
+                        <th>Track Name</th>
+                        <th>Artist Origin Node</th>
+                        {% if not read_only %}<th>Destructive Actions</th>{% endif %}
+                    </tr>
+                </thead>
+                <tbody id="tracklist-rows-tbody">
+                    {% include "partials/track_rows.html" %}
+                </tbody>
+            </table>
+
+            {% if not read_only and playlist.tracks %}
+                <div class="table-save-action-row">
+                    <p class="hint">Adjust numerical values inside Priority input controls to establish sequential track orders dynamically.</p>
+                    <button type="submit" class="btn btn-primary">Recalculate Priorities Order Matrix</button>
+                </div>
+            {% endif %}
+        </form>
+
+            <p class="placeholder-text-center">This configuration profile contains no active track matrix references. Query the Last.fm Pipeline from the home engine to stream items into this file view container.</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Sign In — Music Matrix{% endblock %}
+
+{% block content %}
+<div style="max-width: 450px; margin: 4rem auto;" class="card">
+    <h2> Access Portal Sign In</h2>
+    <p class="subtitle">Authenticate secure credentials to unlock your data workspace matrix.</p>
+    
+    <form action="{{ url_for('auth.login') }}" method="POST">
+        <div class="form-group">
+            <label for="username">Username Matrix ID:</label>
+            <input type="text" id="username" name="username" required class="form-control" placeholder="Enter username...">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Security Password Key:</label>
+            <input type="password" id="password" name="password" required class="form-control" placeholder="Enter security key...">
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Verify Identity & Initialize Session</button>
+    </form>
+    
+    <p style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+        New operator? <a href="{{ url_for('auth.register') }}" class="text-link">Register a new profile node</a>
+    </p>
+</div>
+{% endblock %}

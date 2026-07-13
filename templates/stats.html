@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Monthly Analytics Dashboard — Music Matrix{% endblock %}
+
+{% block content %}
+<div class="stats-dashboard-layout">
+    
+    <div class="card stats-header-card">
+        <h1>Strategy Metrics & Activity Logs</h1>
+        <p class="subtitle">Calculated processing summaries of pipeline playbacks for the current calendar cycle window.</p>
+    </div>
+
+    <div class="stats-grid-split">
+        <!-- Top 5 Artists Module -->
+        <div class="card charts-card">
+            <h3>Top 5 Streamed Artists (This Month)</h3>
+            <p class="subtitle">Extracted directly from personal secure timeline logging archives.</p>
+            
+            {% if top_artists %}
+                <div class="bar-chart-container">
+                    {% for artist in top_artists %}
+                        <div class="chart-row-element">
+                            <div class="row-label-text">
+                                <strong>{{ loop.index }}. {{ artist.artist_name }}</strong>
+                            </div>
+                            <div class="bar-visual-wrapper">
+                                 <div class="bar-fill-indicator" data-width="{{ artist.width }}">
+                                    <span class="bar-value-label">{{ artist.play_count }} Logged Events</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="placeholder-text-muted">Insufficient database log records to generate statistical charts for this calendar cycle month.</p>
+                <div class="cta-banner">
+                    <a href="{{ url_for('main.search') }}" class="btn btn-sm btn-info">Search and log tracks to populate data metrics</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="card charts-card">
+            <h3>Core Genre / Tag Distributions</h3>
+            <p class="subtitle">Categorization summaries compiled from associated metadata logs.</p>
+            
+            <div class="tag-metrics-list">
+                {% for genre, count in top_genres %}
+                    <div class="tag-metric-item">
+                        <div class="tag-info-node">
+                            <a href="{{ url_for('main.genre_explorer', tag_name=genre) }}" class="badge-tag-explorer"># {{ genre }}</a>
+                            <span class="tag-subtext">Active association mapping profiles</span>
+                        </div>
+                        <span class="frequency-indicator-pills">{{ count }} Matches</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}{{ bio.name if bio else 'Artist Node Profile' }} — Music Matrix{% endblock %}
+
+{% block content %}
+<div class="artist-profile-layout">
+    
+    {% if bio %}
+        <div class="card artist-bio-card">
+            <div class="bio-header-layout">
+                <h1>🎙️ Artist: {{ bio.name }}</h1>
+                <div class="artist-stats-pills">
+                    <span class="pill">Listeners: {{ bio.stats.listeners | default('N/A') }}</span>
+                    <span class="pill"> Playcount: {{ bio.stats.playcount | default('N/A') }}</span>
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="bio-content-body">
+                <h3>Biography Matrix Data</h3>
+                <p class="bio-text-paragraph">{{ bio.bio.summary | safe if bio.bio else 'No biography profile logged for this artist.' }}</p>
+            </div>
+        </div>
+
+        <div class="profile-split-grid">
+            <div class="card top-tracks-card">
+                <h3>Verified Top Catalog Tracks</h3>
+                <p class="subtitle">Most streamed tracks from this artist endpoint node.</p>
+                {% if top_tracks %}
+                    <ul class="catalog-list">
+                        {% for track in top_tracks %}
+                            <li class="catalog-item">
+                                <div class="track-meta">
+                                    <strong>{{ track.name }}</strong>
+                                    <span class="playcount-metric"> Stream Count: {{ track.playcount }}</span>
+                                </div>
+                                <div class="quick-action-tray">
+                                    <form action="{{ url_for('main.log_listening_history') }}" method="POST">
+                                        <input type="hidden" name="track_name" value="{{ track.name }}">
+                                        <input type="hidden" name="artist_name" value="{{ bio.name }}">
+                                        <input type="hidden" name="track_mbid" value="{{ track.mbid or '' }}">
+                                        <button type="submit" class="btn btn-sm btn-success">Log Play</button>
+                                    </form>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="placeholder-text-muted">No track catalogs resolved from API endpoints.</p>
+                {% endif %}
+            </div>
+
+            <div class="card recommendations-card">
+                <h3>Related Recommendation Matrix</h3>
+                <p class="subtitle">Similar artists automatically surfaced based on listener metrics.</p>
+                {% if similar %}
+                    <div class="recommendations-list">
+                        {% for artist in similar %}
+                            <div class="recommendation-badge card">
+                                <h4>{{ artist.name }}</h4>
+                                <a href="{{ url_for('main.artist_profile', artist_name=artist.name) }}" class="btn btn-sm btn-primary">Switch Profile Node →</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="placeholder-text-muted">No similarity clustering profiles found.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="card error-container">
+            <h2>System Dependency Timeout</h2>
+            <p>The artist profile could not be assembled from Last.fm API lookup logs.</p>
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary">Return to Base Engine</a>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+

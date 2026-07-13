@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Register Profile Node — Music Matrix{% endblock %}
+
+{% block content %}
+<div style="max-width: 450px; margin: 4rem auto;" class="card">
+    <h2>🛠️ Register New Profile Node</h2>
+    <p class="subtitle">Spawn a local relational table instance to catalog metrics histories.</p>
+    
+    <form action="{{ url_for('auth.register') }}" method="POST">
+        <div class="form-group">
+            <label for="username">Select Username Assignment:</label>
+            <input type="text" id="username" name="username" required class="form-control" placeholder="Choose username...">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Communications Email Endpoint:</label>
+            <input type="email" id="email" name="email" required class="form-control" placeholder="name@domain.com">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Create Security Password Key:</label>
+            <input type="password" id="password" name="password" required class="form-control" placeholder="Choose a safe key...">
+        </div>
+        
+        <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 1rem;">Generate Table & Finalize Account</button>
+    </form>
+    
+    <p style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+        Already registered? <a href="{{ url_for('auth.login') }}" class="text-link">Return to login gateway</a>
+    </p>
+</div>
+{% endblock %}

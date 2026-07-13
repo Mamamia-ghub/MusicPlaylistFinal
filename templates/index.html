@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Search &amp; Trending Dashboard — Music Matrix{% endblock %}
+
+{% block content %}
+<div class="dashboard-grid">
+    
+    <div class="search-section card">
+        <h2>External Last.fm Pipeline Integration</h2>
+        <p class="subtitle">Search for Artists, Albums, or Tracks directly through the live metadata pipeline.</p>
+        
+        <form action="{{ url_for('main.search') }}" method="GET" class="search-form">
+            <div class="form-row">
+                <input type="text" name="q" value="{{ query }}" placeholder="Type search parameters..." required class="form-control">
+                <select name="type" class="form-control select-control">
+                    <option value="track" {% if search_type == 'track' %}selected{% endif %}>Tracks</option>
+                    <option value="artist" {% if search_type == 'artist' %}selected{% endif %}>Artists</option>
+                    <option value="album" {% if search_type == 'album' %}selected{% endif %}>Albums</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Execute Search</button>
+            </div>
+        </form>
+
+        {% if results %}
+            <div class="results-layout">
+                <h3>Query Pipeline Outputs for: "{{ query }}"</h3>
+                <div class="results-grid">
+                    {% for item in results %}
+                        <div class="result-item card">
+                            
+                            {% if search_type == 'track' %}
+                                <h4>{{ item.name }}</h4>
+                                <p>by <a href="{{ url_for('main.artist_profile', artist_name=item.artist) }}" class="text-link">{{ item.artist }}</a></p>
+                                <div class="action-tray">
+                                    <form action="{{ url_for('main.log_listening_history') }}" method="POST" style="display:inline;">
+                                        <input type="hidden" name="track_name" value="{{ item.name }}">
+                                        <input type="hidden" name="artist_name" value="{{ item.artist }}">
+                                        <input type="hidden" name="track_mbid" value="{{ item.mbid or '' }}">
+                                        <button type="submit" class="btn btn-sm btn-success">Log Play</button>
+                                    </form>
+                                    <a href="#review-modal-{{ loop.index }}" class="btn btn-sm btn-secondary">Review</a>
+                                </div>
+
+                            {% elif search_type == 'artist' %}
+                                <h4>{{ item.name }}</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Listeners: {{ item.listeners|default('N/A') }}</p>
+                                <a href="{{ url_for('main.artist_profile', artist_name=item.name) }}" class="btn btn-sm btn-primary">Open Strategy Bio →</a>
+
+                            {% elif search_type == 'album' %}
+                                <h4>{{ item.name }}</h4>
+                                <p>by <strong>{{ item.artist }}</strong></p>
+                                <div class="action-tray" style="margin-top: 1rem;">
+                                    <a href="{{ url_for('main.artist_profile', artist_name=item.artist) }}" class="btn btn-sm btn-secondary">View Artist Node</a>
+                                </div>
+                            {% endif %}
+
+                            <div id="review-modal-{{ loop.index }}" class="modal-overlay">
+                                <div class="modal-box">
+                                    <a href="#" class="modal-close">&times;</a>
+                                    <h3 style="color: #000000;">Write Micro-Review</h3>
+                                    <p style="color: #6b7280;"><strong>{{ item.name }}</strong> {% if item.artist %}by {{ item.artist }}{% endif %}</p>
+                                    <form action="{{ url_for('main.submit_review') }}" method="POST">
+                                        <input type="hidden" name="track_name" value="{{ item.name }}">
+                                        <input type="hidden" name="artist_name" value="{{ item.artist or '' }}">
+                                        <input type="hidden" name="track_mbid" value="{{ item.mbid or '' }}">
+                                        
+                                        <div class="form-group">
+                                            <label style="color: #000000;">Rating Evaluation Scale (1-5):</label>
+                                            <input type="number" name="rating" min="1" max="5" value="5" required class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="color: #000000;">Commentary Matrix (Maximum 280 Characters):</label>
+                                            <textarea name="content" maxlength="280" required class="form-control" placeholder="Provide quick micro-review insights..."></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Archive Review Asset</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% elif query %}
+            <p class="no-results-msg">No functional system elements retrieved matching parameters context logs.</p>
+        {% endif %}
+    </div>
+
+    <div class="trending-section card">
+        <h2>Global Trending Matrix</h2>
+        <p class="subtitle">Most listened tracks this week based entirely on user pipeline logs.</p>
+        
+        {% if trending %}
+            <ol class="trending-list">
+                {% for track in trending %}
+                    <li class="trending-item">
+                        <div class="trending-meta">
+                            <span class="track-title-span"><strong>{{ track.track_name }}</strong></span>
+                            <span class="artist-subtitle-span">by {{ track.artist_name }}</span>
+                        </div>
+                        <span class="play-badge-metric">{{ track.play_count }} plays logged</span>
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p class="placeholder-text-muted">No playback events logged to stream databases yet this week.</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
+
+

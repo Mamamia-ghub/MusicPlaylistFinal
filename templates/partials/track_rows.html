@@ -1,0 +1,24 @@
+{% for track in playlist.tracks %}
+<tr id="track-row-id-element-{{ track.id }}">
+    {% if not read_only %}
+        <td>
+            <input type="hidden" name="track_row_ids" value="{{ track.id }}">
+            <input type="number" name="priority_order_indices" value="{{ track.order }}" class="form-control inline-order-input">
+        </td>
+    {% endif %}
+    <td><strong>{{ track.track_name }}</strong></td>
+    <td><a href="{{ url_for('main.artist_profile', artist_name=track.artist_name) }}" class="text-link">{{ track.artist_name }}</a></td>
+    {% if not read_only %}
+        <td>
+            <button type="button"
+                    hx-delete="/api/playlists/{{ playlist.id }}/tracks/{{ track.id }}"
+                    hx-target="#track-row-id-element-{{ track.id }}"
+                    hx-swap="outerHTML"
+                    hx-confirm="Are you sure you want to purge this record element entry from the matrix?"
+                    class="btn btn-sm btn-danger">
+                Purge Track
+            </button>
+        </td>
+    {% endif %}
+</tr>
+{% endfor %}

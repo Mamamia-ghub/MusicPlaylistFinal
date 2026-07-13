@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Discovery Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://unpkg.com/htmx.org@2.0.0"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('main.index') }}" class="brand-logo">MusicExplorers</a>
+            <div class="nav-links">
+                <a href="{{ url_for('main.index') }}">Search &amp; Discover</a>
+                
+                {% if session.get('user_id') %}
+                    <a href="{{ url_for('main.playlists_dashboard') }}">My Playlists</a>
+                    <a href="{{ url_for('main.stats_dashboard') }}">Stats &amp; Trending</a>
+                    <span class="user-badge">{{ session.get('username') }}</span>
+                    <a href="{{ url_for('auth.logout') }}" class="btn btn-sm btn-danger">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-sm btn-primary">Sign In</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-sm btn-secondary">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages-container">
+                {% for category, msg in messages %}
+                    <div class="flash-alert alert-{{ category }}">
+                        {{ msg }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main class="app-content-frame">
+        {% if error_title %}
+            <div class="error-container">
+                <h1 class="error-heading">{{ error_title }}</h1>
+                <p class="error-text">{{ error_message }}</p>
+                <a href="{{ url_for('main.index') }}" class="btn btn-primary">Return to Base Engine</a>
+            </div>
+        {% else %}
+            {% block content %}{% endblock %}
+        {% endif %}
+    </main>
+
+    <footer class="app-footer">
+        <p>&copy; Copyright: Alte University / Tbilisi State University — Web Development with Flask — Final Projects 2025/2026.</p>
+    </footer>
+
+</body>
+</html>
+
+
+
