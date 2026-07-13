@@ -6,7 +6,7 @@
 <div class="playlists-container">
     
     <div class="card creation-card">
-        <h2>🛠️ Spawn New Playlist Matrix</h2>
+        <h2>Spawn New Playlist Matrix</h2>
         <form action="{{ url_for('main.create_playlist') }}" method="POST" class="horizontal-form">
             <div class="form-inputs">
                 <input type="text" name="title" placeholder="Playlist Matrix Title" required class="form-control">
@@ -22,14 +22,15 @@
 
     <div class="playlists-display-section">
         <h2>Personal Playlists</h2>
-        
         {% if pagination.items %}
             <div class="playlists-grid">
                 {% for p in pagination.items %}
                     <div id="playlist-card-container-{{ p.id }}" class="card playlist-card">
+                        
                         {% if p.cover_url %}
                             <img src="{{ p.cover_url }}" alt="Cover" class="playlist-thumbnail" onerror="this.style.display='none'">
                         {% endif %}
+                        
                         <div class="playlist-meta">
                             <h3>{{ p.title }}</h3>
                             <p>{{ p.description or 'No structural description provided.' }}</p>
@@ -39,11 +40,11 @@
                         </div>
                         
                         <div class="playlist-actions">
-                            <button type="button"
-                                    hx-delete="/playlists/delete/{{ p.id }}"
-                                    hx-target="#playlist-card-container-{{ p.id }}"
-                                    hx-swap="outerHTML"
-                                    hx-confirm="Are you sure you want to permanently delete this playlist matrix container?"
+                            <button type="button" 
+                                    hx-delete="{{ url_for('main.delete_playlist_matrix', playlist_id=p.id) }}" 
+                                    hx-target="#playlist-card-container-{{ p.id }}" 
+                                    hx-swap="outerHTML" 
+                                    hx-confirm="Are you sure you want to permanently delete this playlist matrix container?" 
                                     class="btn btn-sm btn-danger">
                                 Delete
                             </button>
@@ -63,12 +64,10 @@
                     <a href="{{ url_for('main.playlists_dashboard', page=pagination.next_num) }}" class="btn btn-secondary">Next Matrix Page →</a>
                 {% endif %}
             </div>
-
         {% else %}
             <p class="placeholder-text-muted">No configuration profiles mapped to this profile yet. Use the system tool above to build your first grid container.</p>
         {% endif %}
     </div>
-
 </div>
 {% endblock %}
 
