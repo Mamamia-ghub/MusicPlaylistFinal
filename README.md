@@ -9,11 +9,17 @@ WEB URL: https://mamamiamaria1.pythonanywhere.com/
 Highlights
 
 **Application Structure:** Application is fully set up in `create_app()`
+
 **Blueprint Organization:** The project is divided into separate modules (`auth_bp`, `main_bp`, `api_bp`)
+
 **Database System:** Uses Flask-SQLAlchemy with 6 related SQLite tables connected through foreign keys and automatic deletion rules.
-**User Authentication:** Uses Werkzeug password hashing, Flask sessions, and a custom `@login_required` decorator to protect user-only pages (can't access My Playlists and Stats & Trending if not loged in)
+
+**User Authentication:** Uses Werkzeug password hashing, Flask sessions, and a custom `@login_required` decorator to protect user-only pages (can't access My Playlists and Stats & Trending if not logged in)
+
 **REST API:** Provides 6 JSON API endpoints under `/api/` for sending and receiving application data.
+
 **User Interaction:** Uses HTMX(no javascript) for deleting playlists, and CSS `:target` selectors for review popups.
+
 **Experience:** Includes search features, formatted dates, and navigation between pages.
 
 ---
@@ -21,15 +27,25 @@ Highlights
 Features Implemented
 
 1. **Last.fm Music Search:** Allows users to search for artists, albums, and tracks using live Last.fm data.
+
 2. **Playlist Management System:** Supports creating and deleting playlists with database management features.
+
 3. **Track Ordering System:** Allows users to control the order of tracks inside playlists.
+
 4. **Track Review System:** Provides a review popup where users can rate tracks from 1-5 stars and write comments up to 280 characters.
+
 5. **Listening History Tracking:** Saves user listening activity.
+
 6. **Artist Information Pages:** Displays artist biographies and top tracks using Last.fm data.
+
 7. **Similar Artist Recommendations:** Suggests related artists using Last.fm recommendations.
+
 8. **Monthly Statistics:** Shows user listening statistics, including top artists and categories for each month.
+
 9. **Public Playlist Sharing:** Creates shareable public playlist pages with read-only access.
+
 10. **Genre and Tag Explorer:** Allows users to discover tracks by exploring music categories and tags.
+
 11. **Trending Music System:** Displays the most listened-to tracks based on user activity from the last 7 days.
 
 
@@ -37,7 +53,7 @@ Features Implemented
 
 
 
-<!-- PROJECT DONE -->
+<!-- PROJECT THAT I'VE DONE -->
 <!-- Project 24 — Music Discovery and Playlist Platform
 **Field:** Music / Entertainment
 
